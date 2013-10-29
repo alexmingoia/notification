@@ -84,6 +84,7 @@ exports.Notification = Notification;
  *
  *    - `title` dialog title
  *    - `message` a message to display
+ *    - `el` element to append notifications
  *
  * @param {Object} options
  * @api public
@@ -91,7 +92,7 @@ exports.Notification = Notification;
 
 function Notification(options) {
   Emitter.call(this);
-  options = options || {};
+  this.options = options || {};
   this.el = o(require('./template'));
   this.render(options);
   if (options.classname) this.el.addClass(options.classname);
@@ -177,7 +178,7 @@ Notification.prototype.effect = function(type){
  */
 
 Notification.prototype.show = function(){
-  this.el.appendTo(list);
+  this.el.appendTo(this.options.el || list);
   return this;
 };
 
