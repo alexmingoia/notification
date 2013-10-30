@@ -92,10 +92,10 @@ exports.Notification = Notification;
 
 function Notification(options) {
   Emitter.call(this);
-  this.options = options || {};
   this.el = o(require('./template'));
+  this.options = options;
   this.render(options);
-  if (options.classname) this.el.addClass(options.classname);
+  if (options && options.classname) this.el.addClass(options.classname);
   if (Notification.effect) this.effect(Notification.effect);
 };
 
@@ -113,6 +113,8 @@ Notification.prototype = new Emitter;
  */
 
 Notification.prototype.render = function(options){
+  options = options || this.options;
+
   var el = this.el
     , title = options.title
     , msg = options.message
